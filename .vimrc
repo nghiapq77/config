@@ -16,7 +16,7 @@ Plugin 'preservim/nerdtree'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'junegunn/goyo.vim'
 Plugin 'tomasiser/vim-code-dark'
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'jiangmiao/auto-pairs'
 
 " All of your Plugins must be added before the following line
@@ -42,6 +42,12 @@ let mapleader = " "
 
 """ map Escape to jk
 imap jk <Esc>
+
+""" split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 """ disable Ex mode
 map Q <Nop>
@@ -83,18 +89,15 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 """ easymotion prefix as leader
 map <Leader> <Plug>(easymotion-prefix)
 
-""" show tab number
-if exists("+showtabline")
-    function MyTabLine()
-        let s = ''
-        let t = tabpagenr()
-        let i = 1
-        while i <= tabpagenr('$')
+""" vim tabs, used in status line
+function MyTabLine()
+    let s = ''
+    let t = tabpagenr()
+    let i = 1
+    while i <= tabpagenr('$')
         let buflist = tabpagebuflist(i)
         let winnr = tabpagewinnr(i)
-        let s .= '%' . i . 'T'
-        let s .= (i == t ? '%1*' : '%2*')
-        let s .= ' '
+        let s .= (i == t ? '[*' : '')
         let s .= i . ':'
         let bufnr = buflist[winnr - 1]
         let file = bufname(bufnr)
@@ -107,21 +110,55 @@ if exists("+showtabline")
             let file = fnamemodify(file, ':p:t')
         endif
         if file == ''
-            let file = '[No Name]'
+            let file = 'No Name'
         endif
         let s .= file
-        let s .= ' |'
+        let s .= (i == t ? ']' : '')
+        let s .= ' | '
         let i = i + 1
-        endwhile
-        let s .= '%T%#TabLineFill#%='
-        let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
-        return s
-    endfunction
-    set stal=2
-    set tabline=%!MyTabLine()
-    map    <C-t>    :tabnext<CR>
-    imap   <C-t>    <C-O>:tabnext<CR>
-    map    <C-S-t>  :tabprev<CR>
-    imap   <C-S-t>  <C-O>:tabprev<CR>
-endif
+    endwhile
+    return s
+endfunction
+map    <C-t>    :tabnext<CR>
+imap   <C-t>    <C-O>:tabnext<CR>
+map    <C-S-t>  :tabprev<CR>
+imap   <C-S-t>  <C-O>:tabprev<CR>
+" hide actual tabline
+set showtabline=0
+""" status line
+function! GitBranch()
+      return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+    let l:branchname = GitBranch()
+    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#\   
+set statusline+=%{MyTabLine()}
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\
+set laststatus=2
+
+""" CoC
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+   let col = col('.') - 1
+   return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <Tab>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ coc#refresh()
+" go to definition
+nmap <leader>gd <Plug>(coc-definition)
 
