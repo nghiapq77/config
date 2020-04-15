@@ -11,6 +11,7 @@ call vundle#begin()
     Plugin 'junegunn/goyo.vim'
     Plugin 'tomasiser/vim-code-dark'
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+    Plugin 'dense-analysis/ale'
     Plugin 'jiangmiao/auto-pairs'
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -81,7 +82,7 @@ function MyTabLine()
     while i <= tabpagenr('$')
         let buflist = tabpagebuflist(i)
         let winnr = tabpagewinnr(i)
-        let s .= (i == t ? '[*' : '')
+        let s .= (i == t ? ' | [*' : ' | ')
         let s .= i . ':'
         let bufnr = buflist[winnr - 1]
         let file = bufname(bufnr)
@@ -98,9 +99,9 @@ function MyTabLine()
         endif
         let s .= file
         let s .= (i == t ? ']' : '')
-        let s .= ' | '
         let i = i + 1
     endwhile
+    let s.= ' |'
     return s
 endfunction
 map    <C-t>    :tabnext<CR>
@@ -120,11 +121,13 @@ function! StatuslineGit()
     return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
+highlight PmenuSel ctermfg=15 ctermbg=23
+
 set statusline=
-set statusline+=%#PmenuSel#
 set statusline+=%{StatuslineGit()}
-set statusline+=%#LineNr#\   
+set statusline+=%#PmenuSel#
 set statusline+=%{MyTabLine()}
+set statusline+=%#LineNr#\   
 set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\ %y
@@ -163,3 +166,17 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time diagnostics appear/become resolved.
 " set signcolumn=yes
+
+""" ALE
+" set python linters
+let g:ale_linters = {'python': ['flake8', 'pylint']}
+
+" set python fixers
+let g:ale_fixers = {'python': ['yapf']}
+
+" map F10 to alefix
+nmap <F10> :ALEFix<CR>
+
+" auto fix upon save
+let g:ale_fix_on_save = 1
+
