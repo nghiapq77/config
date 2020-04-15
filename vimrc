@@ -2,38 +2,22 @@ set encoding=utf-8
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+""" Vundle plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" Keep Plugin commands between vundle#begin/end.
-Plugin 'preservim/nerdtree'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'junegunn/goyo.vim'
-Plugin 'tomasiser/vim-code-dark'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-Plugin 'jiangmiao/auto-pairs'
-
-" All of your Plugins must be added before the following line
+    Plugin 'VundleVim/Vundle.vim'
+    Plugin 'preservim/nerdtree'
+    Plugin 'easymotion/vim-easymotion'
+    Plugin 'junegunn/goyo.vim'
+    Plugin 'tomasiser/vim-code-dark'
+    Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+    Plugin 'jiangmiao/auto-pairs'
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
 
-""" Put your non-Plugin stuff after this line
+""" move .viminfo to .vim/viminfo
+set viminfo+=n~/.vim/viminfo
+
 """ theme
 colorscheme codedark
 
@@ -125,6 +109,7 @@ map    <C-S-t>  :tabprev<CR>
 imap   <C-S-t>  <C-O>:tabprev<CR>
 " hide actual tabline
 set showtabline=0
+
 """ status line
 function! GitBranch()
       return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -143,13 +128,16 @@ set statusline+=%{MyTabLine()}
 set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\ %y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\ %p%%
+"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"set statusline+=\ %p%%
 set statusline+=\ %l:%c
-set statusline+=\
+set statusline+=\ 
 set laststatus=2
 
 """ CoC
+" TextEdit might fail if hidden is not set.
+set hidden
+
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
    let col = col('.') - 1
@@ -159,6 +147,19 @@ inoremap <silent><expr> <Tab>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<Tab>" :
         \ coc#refresh()
+
 " go to definition
 nmap <leader>gd <Plug>(coc-definition)
 
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
+set updatetime=500
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time diagnostics appear/become resolved.
+" set signcolumn=yes
