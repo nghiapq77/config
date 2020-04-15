@@ -20,8 +20,12 @@ fi
 export PS1="\[\e]0;\u: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\e[31m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export PYLINTHOME="$XDG_CACHE_HOME/pylint"
+export XDG_CACHE_HOME="$HOME/.cache"
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export PYLINTHOME="$XDG_CACHE_HOME"/pylint
+export KDEHOME="$XDG_CONFIG_HOME"/kde
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 
 # Alias
 alias la='ls -A'
@@ -51,4 +55,3 @@ shopt -s autocd
 
 # disable Ctrl-S, Ctrl-Q
 stty -ixon
-
