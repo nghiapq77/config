@@ -38,6 +38,7 @@ alias cyber="ssh cyber@10.0.11.84"
 alias sshcyber="ssh -i ~/.ssh/id_rsa nghiapham@203.205.26.244 -p 2020"
 alias abn="cd /home/oz/projects/abnormality-detection && conda activate ml"
 alias act="source venv/bin/activate"
+alias logout="qdbus org.kde.ksmserver /KSMServer logout 1 3 3"
 
 # Colorize commands when possible.
 alias \
@@ -55,3 +56,4 @@ shopt -s autocd
 
 # disable Ctrl-S, Ctrl-Q
 stty -ixon
+
