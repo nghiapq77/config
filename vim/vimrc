@@ -1,6 +1,5 @@
 set encoding=utf-8
-set nocompatible              " be iMproved, required
-filetype off                  " required
+"filetype off                  " required
 
 """ Vundle plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -10,9 +9,9 @@ call vundle#begin()
     Plugin 'Xuyuanp/nerdtree-git-plugin'
     Plugin 'preservim/nerdcommenter'
     Plugin 'easymotion/vim-easymotion'
-    Plugin 'junegunn/goyo.vim'
-    Plugin 'tomasiser/vim-code-dark'
-    Plugin 'arcticicestudio/nord-vim'
+    "Plugin 'junegunn/goyo.vim'
+    "Plugin 'tomasiser/vim-code-dark'
+    Plugin 'morhetz/gruvbox'
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
     Plugin 'dense-analysis/ale'
     Plugin 'jiangmiao/auto-pairs'
@@ -23,14 +22,20 @@ filetype plugin indent on    " required
 set viminfo+=n~/.vim/viminfo
 
 """ theme
-colorscheme codedark
-"colorscheme nord
+"colorscheme codedark
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_number_column='bg0'
+colorscheme gruvbox
+set bg=dark
 
 """ space key as leader
 let mapleader = " "
 
 """ map Escape to jk
 imap jk <Esc>
+
+""" map Enter to new line
+nmap <cr> o<esc>
 
 """ split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -45,23 +50,16 @@ map Q <Nop>
 set number relativenumber
 
 """ Indentation 
-" 4 spaces as tab
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
-
-" indent when moving to the next line while writing code
-set autoindent
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab autoindent
 
 """ enable syntax highlighting
 syntax enable
-
-""" show the matching part of the pair for [] {} and ()
-set showmatch
 
 """ enable all Python syntax highlighting features
 let python_highlight_all = 1
 
 """ goyo
-map <leader>z :Goyo<CR>
+"map <leader>z :Goyo<CR>
 
 """ nerdtree
 " toggle
@@ -70,7 +68,8 @@ map <C-n> :NERDTreeToggle<CR>
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-""" easymotion prefix as leader
+""" easymotion 
+" use prefix as leader
 map <Leader> <Plug>(easymotion-prefix)
 
 """ vim tabs, used in status line
@@ -130,16 +129,16 @@ set nobackup
 set nowritebackup
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
-set updatetime=500
+set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time diagnostics appear/become resolved.
-set signcolumn=yes
+"set signcolumn=yes
 
 " Use K to show documentation in preview window.
-nnoremap <leader> K :call <SID>show_documentation()<CR>
+nnoremap <leader>k :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -181,13 +180,9 @@ set showtabline=0
 set laststatus=2
 
 " git branch info
-function! GitBranch()
-      return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
 function! StatuslineGit()
-    let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0?'   '.l:branchname.' ':''
+    let branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+    return strlen(branchname) > 0 ? '   '.branchname.' ' : ''
 endfunction
 
 " tab color
@@ -195,7 +190,7 @@ highlight PmenuSel ctermfg=15 ctermbg=23
 
 " set statusline
 set statusline=
-set statusline+=%{StatuslineGit()}
+"set statusline+=%{StatuslineGit()} "bug movement
 set statusline+=%#PmenuSel#
 set statusline+=%{MyTabLine()}
 set statusline+=%#LineNr#\   
@@ -204,4 +199,7 @@ set statusline+=%#CursorColumn#
 set statusline+=\ %y
 set statusline+=\ %{LinterStatus()}
 set statusline+=\ %l:%c\ 
+
+" Disable auto comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
