@@ -1,62 +1,52 @@
-#!/usr/bin/env bash
+### for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=2000
+HISTFILESIZE=10000
 
-# If not running interactively, don't do anything
-case $- in
-  *i*) ;;
-    *) return;;
-esac
+### enable programmable completion features
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
 
-# Path to the bash it configuration
-export BASH_IT="/home/oz/.local/src/bash-it"
+### Exporting PS1
+export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w\[\033[01;31m\]]\[\033[00m\]\$ "
 
-# Lock and Load a custom theme file.
-# Leave empty to disable theming.
-# location /.bash_it/themes/
-export BASH_IT_THEME='bobby'
+### Alias
+alias la='ls -A'
+alias jptnb="cd /home/oz/projects/jupyter/ && jupyter notebook"
+alias upgrade="sudo apt update && sudo apt upgrade"
+alias v="vim"
+alias r="ranger ."
+alias abn="cd /home/oz/projects/abnormality-detection && conda activate ml"
+alias act="source venv/bin/activate"
+alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
+alias cyber="ssh cyber@10.0.11.84"
+alias ubuntu="ssh ubuntu@10.0.11.69"
+alias sshcyber="ssh -i ~/downloads/a haophan@203.205.26.244 -p 2020"
 
-# (Advanced): Change this to the name of your remote repo if you
-# cloned bash-it with a remote other than origin such as `bash-it`.
-# export BASH_IT_REMOTE='bash-it'
+### Colorize commands when possible.
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto"
 
-# Your place for hosting Git repos. I use this for private repos.
-export GIT_HOSTING='git@git.domain.com'
+### Auto cd
+shopt -s autocd
 
-# Don't check mail when opening terminal.
-unset MAILCHECK
+### fzf
+# Setup fzf
+if [[ ! "$PATH" == */home/oz/.local/src/fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}/home/oz/.local/src/fzf/bin"
+fi
 
-# Change this to your console based IRC client of choice.
-export IRC_CLIENT='irssi'
+# Auto-completion
+[[ $- == *i* ]] && source "/home/oz/.local/src/fzf/shell/completion.bash" 2> /dev/null
 
-# Set this to the command you use for todo.txt-cli
-export TODO="t"
+# Key bindings
+source "/home/oz/.local/src/fzf/shell/key-bindings.bash"
 
-# Set this to false to turn off version control status checking within the prompt for all themes
-export SCM_CHECK=true
-
-# Set Xterm/screen/Tmux title with only a short hostname.
-# Uncomment this (or set SHORT_HOSTNAME to something else),
-# Will otherwise fall back on $HOSTNAME.
-#export SHORT_HOSTNAME=$(hostname -s)
-
-# Set Xterm/screen/Tmux title with only a short username.
-# Uncomment this (or set SHORT_USER to something else),
-# Will otherwise fall back on $USER.
-#export SHORT_USER=${USER:0:8}
-
-# Set Xterm/screen/Tmux title with shortened command and directory.
-# Uncomment this to set.
-#export SHORT_TERM_LINE=true
-
-# Set vcprompt executable path for scm advance info in prompt (demula theme)
-# https://github.com/djl/vcprompt
-#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
-
-# (Advanced): Uncomment this to make Bash-it reload itself automatically
-# after enabling or disabling aliases, plugins, and completions.
-# export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
-
-# Uncomment this to make Bash-it create alias reload.
-# export BASH_IT_RELOAD_LEGACY=1
-
-# Load Bash It
-source "$BASH_IT"/bash_it.sh
+### disable Ctrl-S, Ctrl-Q
+stty -ixon

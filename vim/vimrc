@@ -9,8 +9,6 @@ call vundle#begin()
     Plugin 'Xuyuanp/nerdtree-git-plugin'
     Plugin 'preservim/nerdcommenter'
     Plugin 'easymotion/vim-easymotion'
-    "Plugin 'junegunn/goyo.vim'
-    "Plugin 'tomasiser/vim-code-dark'
     Plugin 'morhetz/gruvbox'
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
     Plugin 'dense-analysis/ale'
@@ -22,7 +20,6 @@ filetype plugin indent on    " required
 set viminfo+=n~/.vim/viminfo
 
 """ theme
-"colorscheme codedark
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_number_column='bg0'
 colorscheme gruvbox
@@ -149,7 +146,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 """ ALE
 " set python linters
@@ -159,7 +156,7 @@ let g:ale_linters = {'python': ['flake8', 'pylint']}
 let g:ale_fixers = {'python': ['yapf']}
 
 " map F10 to alefix
-nmap <F10> :ALEFix<CR>
+"nmap <F10> :ALEFix<CR>
 
 " auto fix upon save
 let g:ale_fix_on_save = 1
