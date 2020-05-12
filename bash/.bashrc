@@ -1,5 +1,5 @@
 ### for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=2000
+HISTSIZE=10000
 HISTFILESIZE=10000
 
 ### enable programmable completion features
@@ -14,7 +14,7 @@ fi
 ### Exporting PS1
 export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w\[\033[01;31m\]]\[\033[00m\]\$ "
 
-### Alias
+### Aliases
 alias la='ls -A'
 alias jptnb="cd /home/oz/projects/jupyter/ && jupyter notebook"
 alias upgrade="sudo apt update && sudo apt upgrade"
@@ -37,16 +37,18 @@ alias \
 shopt -s autocd
 
 ### fzf
-# Setup fzf
-if [[ ! "$PATH" == */home/oz/.local/src/fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/home/oz/.local/src/fzf/bin"
-fi
-
 # Auto-completion
-[[ $- == *i* ]] && source "/home/oz/.local/src/fzf/shell/completion.bash" 2> /dev/null
+[[ $- == *i* ]] && source "/usr/share/fzf/completion.bash" 2> /dev/null
 
 # Key bindings
-source "/home/oz/.local/src/fzf/shell/key-bindings.bash"
+source "/usr/share/fzf/key-bindings.bash"
 
 ### disable Ctrl-S, Ctrl-Q
 stty -ixon
+
+### Conda
+if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
+    . "/opt/anaconda/etc/profile.d/conda.sh"
+else
+    export PATH="/opt/anaconda/bin:$PATH"
+fi

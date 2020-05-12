@@ -55,9 +55,6 @@ syntax enable
 """ enable all Python syntax highlighting features
 let python_highlight_all = 1
 
-""" goyo
-"map <leader>z :Goyo<CR>
-
 """ nerdtree
 " toggle
 map <C-n> :NERDTreeToggle<CR>
