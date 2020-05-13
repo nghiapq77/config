@@ -10,30 +10,30 @@
 super + Return
     $TERMINAL
 super + d
-    $SCRIPTS/dmenu_run_i
+    dmenu_run_i
 super + r
     $TERMINAL -e ranger
 super + w
     $BROWSER
-super + o ; {s,m,p,k}
-    {skypeforlinux,mailspring,systemsettings5,ksysguard}
+super + o ; {s,m}
+    {skypeforlinux,mailspring}
 super + n
-    $SCRIPTS/toggle_redshift.sh
+    toggle_redshift.sh
 super + equal
-    $SCRIPTS/dmenu_calc
+    dmenu_calc
 XF86AudioMute
     amixer -D pulse set Master 1+ toggle; kill -44 $(pidof dwmblocks)
 XF86Audio{Raise,Lower}Volume
     amixer -D pulse -q set Master 5%{+,-}; kill -44 $(pidof dwmblocks)
-#XF86Audio{Next,Prev}
-        #mpc {next,prev}
-#XF86Audio{Pause,Play,Stop}
-        #mpc {pause,play,stop}
 XF86MonBrightnessDown
     brightness down
 XF86MonBrightnessUp
     brightness up
 
+#XF86Audio{Next,Prev}
+        #mpc {next,prev}
+#XF86Audio{Pause,Play,Stop}
+        #mpc {pause,play,stop}
 #super + shift + period
     #wmctrl -n $(expr $(wmctrl -d | wc -l) + 1)
 #super + shift + comma

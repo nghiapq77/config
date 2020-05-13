@@ -16,11 +16,9 @@ export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w
 
 ### Aliases
 alias la='ls -A'
-alias jptnb="cd /home/oz/projects/jupyter/ && jupyter notebook"
-alias upgrade="sudo apt update && sudo apt upgrade"
 alias v="vim"
+alias sv="sudo vim"
 alias r="ranger ."
-alias abn="cd /home/oz/projects/abnormality-detection && conda activate ml"
 alias act="source venv/bin/activate"
 alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
 alias cyber="ssh cyber@10.0.11.84"

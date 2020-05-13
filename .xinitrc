@@ -1,12 +1,5 @@
 #!/bin/sh
 
-# set PATH so it includes personal scripts if exists
-DWM_SCRIPTS="$HOME/.local/scripts/dwm"
-export SCRIPTS="$HOME/.local/scripts"
-if [ -d $DWM_SCRIPTS ] ; then
-    PATH="$DWM_SCRIPTS:$PATH"
-fi
-
 # Gnome keyring for mailspring
 dbus-update-activation-environment --systemd DISPLAY
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
@@ -16,7 +9,7 @@ export SSH_AUTH_SOCK
 dwmblocks &
 
 # Start daemon
-xwallpaper --zoom $WALLPAPER &
+xwallpaper --zoom $HOME/.local/config/wall.png &
 remaps &
 sxhkd &
 ibus-daemon -drx
@@ -25,9 +18,9 @@ xcompmgr &
 libinput-gestures &
 
 # Use xresources
-xrdb $XRESOURCES &
+xrdb $HOME/.local/config/Xresources &
 
-# For brightness hotkey
+# For brightness 
 sudo chmod 777 /sys/class/backlight/intel_backlight/brightness
 
 # Run dwm

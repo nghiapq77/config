@@ -1,21 +1,15 @@
-#
 # ~/.bash_profile
-#
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 # Global variables
-export DWM_SCRIPTS="$HOME/.local/scripts/dwm"
+export SCRIPTS="$HOME/.local/scripts"
 export TERMINAL="st"
 export BROWSER="brave"
 export EDITOR="vim"
-export WALLPAPER="/home/oz/pics/wall.png"
-export XRESOURCES="/home/oz/.config/Xresources"
 
-# set PATH so it includes personal scripts if exists
-if [ -d $DWM_SCRIPTS ] ; then
-    PATH="$DWM_SCRIPTS:$PATH"
-fi
+# set PATH so it includes personal scripts
+PATH="$SCRIPTS:$PATH"
 
 # Cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -31,6 +25,10 @@ export NOTMUCH_CONFIG="$XDG_CONFIG_HOME"/notmuch/notmuchrc
 export NMBGIT="$XDG_DATA_HOME"/notmuch/nmbug
 export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+
+# For Android Studio
+export _JAVA_AWT_WM_NONREPARENTING=1
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 
 # Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! ps -e | grep -qw Xorg && exec startx
