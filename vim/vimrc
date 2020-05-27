@@ -13,6 +13,7 @@ call vundle#begin()
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
     Plugin 'dense-analysis/ale'
     Plugin 'jiangmiao/auto-pairs'
+    Plugin 'tpope/vim-surround'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -29,7 +30,7 @@ set bg=dark
 let mapleader = " "
 
 """ map Escape to jk
-imap jk <Esc>
+"imap jk <Esc>
 
 """ map Enter to new line
 nmap <cr> o<esc>
@@ -153,10 +154,10 @@ let g:ale_linters = {'python': ['flake8', 'pylint']}
 let g:ale_fixers = {'python': ['yapf']}
 
 " map F10 to alefix
-"nmap <F10> :ALEFix<CR>
+nmap <F10> :ALEFix<CR>
 
 " auto fix upon save
-let g:ale_fix_on_save = 1
+"let g:ale_fix_on_save = 1
 
 " function that show number of errors and warnings on statusline
 function! LinterStatus() abort

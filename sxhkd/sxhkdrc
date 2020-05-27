@@ -1,7 +1,3 @@
-# The Simple X Hotkey Daemon is the program used by LARBS to map most of the
-# dwm-independent commands.  This file is pretty readable, so I'll let you read
-# it.
-
 # The keys NOT bound here by sxhkd, but by dwm or i3 are:
 # The t thru p keys on the top row
 # The f thru ; keys on the home row
@@ -16,7 +12,7 @@ super + r
 super + w
     $BROWSER
 super + o ; {s,m}
-    {skypeforlinux,mailspring}
+    {skypeforlinux,$TERMINAL -e neomutt}
 super + n
     toggle_redshift.sh
 super + equal

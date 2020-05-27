@@ -1,9 +1,9 @@
 #!/bin/sh
 
-# Gnome keyring for mailspring
-dbus-update-activation-environment --systemd DISPLAY
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-export SSH_AUTH_SOCK
+## Gnome keyring for mailspring
+#dbus-update-activation-environment --systemd DISPLAY
+#eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+#export SSH_AUTH_SOCK
 
 # Status bar
 dwmblocks &
@@ -22,6 +22,9 @@ xrdb $HOME/.local/config/Xresources &
 
 # For brightness 
 sudo chmod 777 /sys/class/backlight/intel_backlight/brightness
+
+# Sync mail
+mailsync &
 
 # Run dwm
 exec dwm

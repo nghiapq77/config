@@ -44,6 +44,9 @@ source "/usr/share/fzf/key-bindings.bash"
 ### disable Ctrl-S, Ctrl-Q
 stty -ixon
 
+### Set vi mode
+set -o vi
+
 ### Conda
 if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
     . "/opt/anaconda/etc/profile.d/conda.sh"
