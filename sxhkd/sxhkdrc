@@ -11,20 +11,22 @@ super + r
     $TERMINAL -e ranger
 super + w
     $BROWSER
-super + o ; {s,m}
-    {skypeforlinux,$TERMINAL -e neomutt}
+super + o ; {s,m,c}
+    {skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse}
 super + n
     toggle_redshift.sh
 super + equal
     dmenu_calc
 XF86AudioMute
-    amixer -D pulse set Master 1+ toggle; kill -44 $(pidof dwmblocks)
+    amixer -D pulse set Master 1+ toggle; pkill -RTMIN+10 dwmblocks
 XF86Audio{Raise,Lower}Volume
-    amixer -D pulse -q set Master 5%{+,-}; kill -44 $(pidof dwmblocks)
+    amixer -D pulse -q set Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
 XF86MonBrightnessDown
     brightness down
 XF86MonBrightnessUp
     brightness up
+F8
+    monitor
 
 #XF86Audio{Next,Prev}
         #mpc {next,prev}

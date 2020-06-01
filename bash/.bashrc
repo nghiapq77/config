@@ -11,7 +11,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-### Exporting PS1
+### Setting PS1
 export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w\[\033[01;31m\]]\[\033[00m\]\$ "
 
 ### Aliases
@@ -21,9 +21,6 @@ alias sv="sudo vim"
 alias r="ranger ."
 alias act="source venv/bin/activate"
 alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
-alias cyber="ssh cyber@10.0.11.84"
-alias ubuntu="ssh ubuntu@10.0.11.69"
-alias sshcyber="ssh -i ~/downloads/a haophan@203.205.26.244 -p 2020"
 
 ### Colorize commands when possible.
 alias \
@@ -44,8 +41,8 @@ source "/usr/share/fzf/key-bindings.bash"
 ### disable Ctrl-S, Ctrl-Q
 stty -ixon
 
-### Set vi mode
-set -o vi
+### Clear screen in vi mode
+bind -m vi-insert "\C-l":clear-screen
 
 ### Conda
 if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
