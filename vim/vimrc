@@ -1,20 +1,23 @@
-set encoding=utf-8
-
 """ Vundle plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call vundle#begin() 
     Plugin 'VundleVim/Vundle.vim'
     Plugin 'preservim/nerdtree'
     Plugin 'Xuyuanp/nerdtree-git-plugin'
     Plugin 'preservim/nerdcommenter'
     Plugin 'easymotion/vim-easymotion'
     Plugin 'morhetz/gruvbox'
+    "Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plugin 'junegunn/fzf.vim'
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
     Plugin 'dense-analysis/ale'
     Plugin 'jiangmiao/auto-pairs'
     Plugin 'tpope/vim-surround'
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()
+filetype plugin indent on
+
+""" set utf8 encoding
+set encoding=utf-8
 
 """ move .viminfo to .vim/viminfo
 set viminfo+=n~/.vim/viminfo
@@ -31,6 +34,11 @@ set number relativenumber
 """ space key as leader
 let mapleader = " "
 
+""" Searching with /
+set ignorecase
+set smartcase
+set incsearch
+
 """ Set cursor shape
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -45,26 +53,29 @@ set timeoutlen=1000 ttimeoutlen=0
 """ map Enter to new line
 nmap <cr> o<esc>
 
-" Disable auto comment
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
 """ split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-""" disable Ex mode
-map Q <Nop>
-
 """ Indentation 
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab autoindent
+
+""" No wrap long line
+set nowrap
 
 """ enable syntax highlighting
 syntax enable
 
 """ enable all Python syntax highlighting features
 let python_highlight_all = 1
+
+""" disable Ex mode
+map Q <Nop>
+
+" Disable auto comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """ nerdtree
 " toggle
@@ -75,37 +86,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 """ easymotion 
 map <Leader> <Plug>(easymotion-prefix)
-
-""" vim tabs, used in status line
-function MyTabLine()
-    let s = ''
-    let t = tabpagenr()
-    let i = 1
-    while i <= tabpagenr('$')
-        let buflist = tabpagebuflist(i)
-        let winnr = tabpagewinnr(i)
-        let s .= (i == t ? ' | [[ ' : ' | ')
-        let s .= i . ':'
-        let bufnr = buflist[winnr - 1]
-        let file = bufname(bufnr)
-        let buftype = getbufvar(bufnr, 'buftype')
-        if buftype == 'nofile'
-            if file =~ '\/.'
-            let file = substitute(file, '.*\/\ze.', '', '')
-            endif
-        else
-            let file = fnamemodify(file, ':p:t')
-        endif
-        if file == ''
-            let file = 'No Name'
-        endif
-        let s .= file
-        let s .= (i == t ? '* ]]' : '')
-        let i = i + 1
-    endwhile
-    let s.= ' |'
-    return s
-endfunction
 
 """ CoC
 " TextEdit might fail if hidden is not set.
@@ -143,7 +123,6 @@ set signcolumn=number
 
 " Use K to show documentation in preview window.
 nnoremap <leader>k :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -165,31 +144,23 @@ let g:ale_fixers = {'python': ['yapf']}
 " map F7 to alefix
 nmap <F7> :ALEFix<CR>
 
-" function that show number of errors and warnings on statusline
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf(' %d  %d', all_non_errors, all_errors)
-endfunction
-
-""" status line
+""" cmd line
 " hide actual tabline
 set showtabline=0
 
-" always show status
-set laststatus=2
+" Set ruler to show current buffer
+highlight User1 ctermfg=9
+set ruler
+set rulerformat=%60(%1*%.3n\ %f\%=%l,%(%c%V%)\ %P%)%*
 
-" tab color
-highlight PmenuSel ctermfg=15 ctermbg=23
+""" fzf
+nnoremap <C-f> :Files<CR>
+nnoremap <Leader>gb :Buffers<CR>
+nnoremap <Leader>gl :Lines<CR>
 
-" set statusline
-set statusline=
-set statusline+=%#PmenuSel#
-set statusline+=%{MyTabLine()}
-set statusline+=%#LineNr#\   
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\ %{coc#status()}%{get(b:,'coc_current_function','')}
-set statusline+=\ %{LinterStatus()}
-set statusline+=\ %l:%c\ 
+""" buffers switching: Ngb
+let c = 1
+while c <= 20
+    execute "nnoremap " . c . "gb :" . c . "b\<CR>"
+    let c += 1
+endwhile
