@@ -18,6 +18,7 @@ export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w
 alias la='ls -A'
 alias v="vim"
 alias sv="sudo vim"
+alias g="git"
 alias r="ranger ."
 alias act="source venv/bin/activate"
 alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
