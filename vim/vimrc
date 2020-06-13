@@ -1,13 +1,11 @@
 """ Vundle plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin() 
+call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'
     Plugin 'preservim/nerdtree'
-    Plugin 'Xuyuanp/nerdtree-git-plugin'
     Plugin 'preservim/nerdcommenter'
     Plugin 'easymotion/vim-easymotion'
     Plugin 'morhetz/gruvbox'
-    "Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plugin 'junegunn/fzf.vim'
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
     Plugin 'dense-analysis/ale'
@@ -49,6 +47,9 @@ autocmd VimEnter * silent !echo -ne "\e[2 q"
 
 """ Key, keycode delay
 set timeoutlen=1000 ttimeoutlen=0
+
+""" map Y to have same behavior as C and D
+map Y y$
 
 """ map Enter to new line
 nmap <cr> o<esc>
@@ -100,6 +101,7 @@ inoremap <silent><expr> <Tab>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<Tab>" :
         \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " goto code navigations
 nmap <leader>gd <Plug>(coc-definition)
@@ -151,16 +153,19 @@ set showtabline=0
 " Set ruler to show current buffer
 highlight User1 ctermfg=9
 set ruler
-set rulerformat=%60(%1*%.3n\ %f\%=%l,%(%c%V%)\ %P%)%*
+set rulerformat=%80(%1*%.3n\ %f\%=%l,%(%c%V%)\ %P%)%*
+
+""" show keystroke
+set showcmd
 
 """ fzf
-nnoremap <C-f> :Files<CR>
+nnoremap <Leader>gf :Files<CR>
 nnoremap <Leader>gb :Buffers<CR>
 nnoremap <Leader>gl :Lines<CR>
 
 """ buffers switching: Ngb
 let c = 1
-while c <= 20
+while c <= 30
     execute "nnoremap " . c . "gb :" . c . "b\<CR>"
     let c += 1
 endwhile
