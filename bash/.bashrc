@@ -22,6 +22,7 @@ alias g="git"
 alias r="ranger ."
 alias act="source venv/bin/activate"
 alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
+alias f="find -iname"
 
 ### Colorize commands when possible.
 alias \

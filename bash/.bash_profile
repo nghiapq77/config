@@ -27,6 +27,9 @@ export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export IPYTHONDIR="$XDG_CONFIG_HOME"/jupyter
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 
 # For Android Studio
 export _JAVA_AWT_WM_NONREPARENTING=1
