@@ -9,7 +9,6 @@ call vundle#begin()
     Plugin 'junegunn/fzf.vim'
     Plugin 'neoclide/coc.nvim', {'branch': 'release'}
     Plugin 'dense-analysis/ale'
-    Plugin 'jiangmiao/auto-pairs'
     Plugin 'tpope/vim-surround'
 call vundle#end()
 filetype plugin indent on
