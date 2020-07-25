@@ -84,6 +84,9 @@ map <C-n> :NERDTreeToggle<CR>
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" bookmark file
+let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
+
 """ easymotion 
 map <Leader> <Plug>(easymotion-prefix)
 
@@ -108,6 +111,9 @@ nmap <leader>gr <Plug>(coc-references)
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+
+" Coc search
+nmap <leader>rs :CocSearch -S 
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -168,3 +174,6 @@ while c <= 30
     execute "nnoremap " . c . "gb :" . c . "b\<CR>"
     let c += 1
 endwhile
+
+""" Toggle cursorline
+nnoremap <Leader>hi :set cursorline!<CR>
