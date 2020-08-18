@@ -8,8 +8,8 @@ super + r
     $TERMINAL -e ranger
 super + w
     $BROWSER
-super + o ; {v,h,s,m,c}
-    {$TERMINAL -e vim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse}
+super + o ; {w,v,h,s,m,c}
+    {$TERMINAL -e nmtui,$TERMINAL -e vim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse}
 super + n
     toggle_redshift.sh
 super + equal
