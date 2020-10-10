@@ -1,16 +1,14 @@
 """ Vundle plugin manager
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-    Plugin 'VundleVim/Vundle.vim'
-    Plugin 'preservim/nerdtree'
-    Plugin 'preservim/nerdcommenter'
-    Plugin 'easymotion/vim-easymotion'
-    Plugin 'morhetz/gruvbox'
-    Plugin 'junegunn/fzf.vim'
-    Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-    Plugin 'dense-analysis/ale'
-    Plugin 'tpope/vim-surround'
-call vundle#end()
+call plug#begin('~/.vim/plugged')
+    Plug 'preservim/nerdtree'
+    Plug 'preservim/nerdcommenter'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'morhetz/gruvbox'
+    Plug 'junegunn/fzf.vim'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'dense-analysis/ale'
+    Plug 'tpope/vim-surround'
+call plug#end()
 filetype plugin indent on
 
 """ set utf8 encoding
@@ -49,6 +47,13 @@ set timeoutlen=1000 ttimeoutlen=0
 
 """ map Y to have same behavior as C and D
 map Y y$
+
+""" remap J, K
+nmap J <C-d>
+nmap K <C-u>
+
+""" map :W to :w
+command W w
 
 """ map Enter to new line
 nmap <cr> o<esc>
@@ -175,5 +180,6 @@ while c <= 30
     let c += 1
 endwhile
 
-""" Toggle cursorline
+""" Set default cursorline, toggle cursorline
+set cursorline
 nnoremap <Leader>hi :set cursorline!<CR>
