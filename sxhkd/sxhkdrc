@@ -12,6 +12,8 @@ super + o ; {w,v,h,s,m,c}
     {$TERMINAL -e nmtui,$TERMINAL -e vim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse}
 super + n
     toggle_redshift.sh
+super + p
+    passmenu
 super + equal
     dmenu_calc
 F8
