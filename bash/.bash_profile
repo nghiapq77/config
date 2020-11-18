@@ -6,7 +6,7 @@
 export SCRIPTS="$HOME/.local/scripts"
 export TERMINAL="st"
 export BROWSER="brave"
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # set PATH so it includes personal scripts
 PATH="$SCRIPTS:$PATH"
@@ -30,6 +30,7 @@ export CARGO_HOME="$XDG_DATA_HOME"/cargo
 #export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 #export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+export DIFFPROG=nvim
 
 # Start graphical server on tty1 if not already running.
 [ "$(tty)" = "/dev/tty1" ] && ! ps -e | grep -qw Xorg && exec startx

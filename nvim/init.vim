@@ -1,5 +1,5 @@
 """ Vundle plugin manager
-call plug#begin('~/.vim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
     Plug 'preservim/nerdtree'
     Plug 'preservim/nerdcommenter'
     Plug 'easymotion/vim-easymotion'
@@ -13,9 +13,6 @@ filetype plugin indent on
 
 """ set utf8 encoding
 set encoding=utf-8
-
-""" move .viminfo to .vim/viminfo
-set viminfo+=n~/.vim/viminfo
 
 """ theme
 let g:gruvbox_contrast_dark='hard'
@@ -33,14 +30,6 @@ let mapleader = " "
 set ignorecase
 set smartcase
 set incsearch
-
-""" Set cursor shape
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
-
-"reset cursor shape on start:
-autocmd VimEnter * silent !echo -ne "\e[2 q"
 
 """ Key, keycode delay
 set timeoutlen=1000 ttimeoutlen=0
@@ -70,6 +59,9 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab autoindent
 """ No wrap long line
 set nowrap
 
+""" Disable hlsearch
+set nohlsearch
+
 """ enable syntax highlighting
 syntax enable
 
@@ -90,7 +82,7 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " bookmark file
-let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
+let NERDTreeBookmarksFile = '~/.local/share/nvim' . '/NERDTreeBookmarks'
 
 """ easymotion 
 map <Leader> <Plug>(easymotion-prefix)
@@ -131,7 +123,7 @@ set updatetime=300
 set shortmess+=c
 
 " Always show the signcolumn as number column
-set signcolumn=number
+"set signcolumn=number
 
 " Use K to show documentation in preview window.
 nnoremap <leader>k :call <SID>show_documentation()<CR>

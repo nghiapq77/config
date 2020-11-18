@@ -16,9 +16,9 @@ export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w
 
 ### Aliases
 alias la='ls -A'
-alias v="vim"
-alias vf='vim $(fzf)'
-alias sv="sudo vim"
+alias v="nvim"
+alias vf='nvim $(fzf)'
+alias sv="sudo -E nvim"
 alias g="git"
 alias gc="git checkout"
 alias gl="git log --graph --all"
