@@ -26,10 +26,14 @@ set number relativenumber
 """ space key as leader
 let mapleader = " "
 
+""" Clipboard
+set clipboard+=unnamedplus
+
 """ Searching with /
 set ignorecase
 set smartcase
 set incsearch
+set nohlsearch  " Disable hlsearch
 
 """ Key, keycode delay
 set timeoutlen=1000 ttimeoutlen=0
@@ -58,9 +62,6 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab autoindent
 
 """ No wrap long line
 set nowrap
-
-""" Disable hlsearch
-set nohlsearch
 
 """ enable syntax highlighting
 syntax enable
