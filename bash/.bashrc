@@ -28,6 +28,8 @@ alias gp="git pull"
 alias r="ranger ."
 alias act="source venv/bin/activate"
 alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
+alias yaya="yay -Syua"
+alias i="ip -br -c a"
 
 ### Colorize commands when possible.
 alias \
