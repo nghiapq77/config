@@ -15,7 +15,7 @@ xcompmgr &
 xrdb $HOME/.local/config/x/Xresources &
 
 # For brightness 
-sudo chmod 777 /sys/class/backlight/intel_backlight/brightness
+sudo chmod 446 /sys/class/backlight/intel_backlight/brightness
 
 # Sync mail
 mailsync &

@@ -1,6 +1,6 @@
 ### for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=10000
+HISTSIZE=50000
+HISTFILESIZE=50000
 
 ### enable programmable completion features
 if ! shopt -oq posix; then
@@ -16,6 +16,7 @@ export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w
 
 ### Aliases
 alias la='ls -A'
+alias lA='ls -lA'
 alias v="nvim"
 alias vf='nvim $(fzf)'
 alias sv="sudo -E nvim"
@@ -30,6 +31,9 @@ alias act="source venv/bin/activate"
 alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
 alias yaya="yay -Syua"
 alias i="ip -br -c a"
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rsync="rsync -Prv"
 
 ### Colorize commands when possible.
 alias \
