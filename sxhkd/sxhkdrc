@@ -9,7 +9,7 @@ super + r
 super + w
     $BROWSER
 super + o ; {w,v,h,s,m,c}
-    {$TERMINAL -e nmtui,$TERMINAL -e vim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse}
+    {$TERMINAL -e nmtui,$TERMINAL -e nvim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse}
 super + n
     toggle_redshift.sh
 super + p
