@@ -6,7 +6,6 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'dense-analysis/ale'
     Plug 'tpope/vim-surround'
 call plug#end()
 filetype plugin indent on
@@ -123,31 +122,24 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-" Always show the signcolumn as number column
-"set signcolumn=number
-
-" Use K to show documentation in preview window.
+" Show documentation in preview window.
 nnoremap <leader>k :call <SID>show_documentation()<CR>
+
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
-    else
+    elseif (coc#rpc#ready())
         call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
     endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-""" ALE
-" set python linters
-let g:ale_linters = {'python': ['flake8', 'pylint']}
-
-" set python fixers
-let g:ale_fixers = {'python': ['yapf']}
-
-" map F7 to alefix
-nmap <F7> :ALEFix<CR>
+" Code format
+nmap <F7> :call CocAction('format')<CR>
 
 """ cmd line
 " hide actual tabline
