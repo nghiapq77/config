@@ -33,9 +33,10 @@ alias yaya="yay -Syua"
 alias i="ip -br -c a"
 alias cp="cp -iv"
 alias mv="mv -iv"
+alias rm="rm -vI"
 alias rsync="rsync -Prv"
 
-### Colorize commands when possible.
+# Colorize commands when possible.
 alias \
 	ls="ls -hN --color=auto --group-directories-first" \
 	grep="grep --color=auto" \
@@ -53,9 +54,6 @@ source "/usr/share/fzf/key-bindings.bash"
 
 ### disable Ctrl-S, Ctrl-Q
 stty -ixon
-
-### Clear screen in vi mode
-bind -m vi-insert "\C-l":clear-screen
 
 ### Conda
 if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
