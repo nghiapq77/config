@@ -8,16 +8,16 @@ super + r
     $TERMINAL -e ranger
 super + w
     $BROWSER
-super + o ; {w,v,h,s,m,c}
-    {$TERMINAL -e nmtui,$TERMINAL -e nvim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse}
+super + o ; {w,v,h,s,m,c,b}
+    {wifi_selector,$TERMINAL -e nvim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse,$TERMINAL -e bluetoothctl}
 super + n
     toggle_redshift.sh
 super + p
-    passmenu
+    passmenu_vert
 super + equal
     dmenu_calc
 F8
-    monitor
+    toggle_hdmi
 XF86AudioMute
     amixer -D pulse set Master 1+ toggle; pkill -RTMIN+10 dwmblocks
 XF86Audio{Raise,Lower}Volume

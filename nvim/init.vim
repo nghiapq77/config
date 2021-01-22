@@ -40,9 +40,9 @@ set timeoutlen=1000 ttimeoutlen=0
 """ map Y to have same behavior as C and D
 map Y y$
 
-""" remap J, K
-nmap J <C-d>
-nmap K <C-u>
+""" remap J, K to move up and down
+map J <C-d>
+map K <C-u>
 
 """ map :W to :w
 command W w
@@ -123,7 +123,7 @@ set updatetime=300
 set shortmess+=c
 
 " Show documentation in preview window.
-nnoremap <leader>k :call <SID>show_documentation()<CR>
+nnoremap <leader>d :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
