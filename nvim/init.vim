@@ -1,4 +1,4 @@
-""" Vundle plugin manager
+""" Plugin manager
 call plug#begin(stdpath('data') . '/plugged')
     Plug 'preservim/nerdtree'
     Plug 'preservim/nerdcommenter'
@@ -8,16 +8,11 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'tpope/vim-surround'
 call plug#end()
-filetype plugin indent on
-
-""" set utf8 encoding
-set encoding=utf-8
 
 """ theme
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_number_column='bg0'
 colorscheme gruvbox
-set bg=dark
 
 """ set relative line number
 set number relativenumber
@@ -31,7 +26,6 @@ set clipboard+=unnamedplus
 """ Searching with /
 set ignorecase
 set smartcase
-set incsearch
 set nohlsearch  " Disable hlsearch
 
 """ Key, keycode delay
@@ -57,13 +51,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 """ Indentation 
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab autoindent
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4
 
 """ No wrap long line
 set nowrap
-
-""" enable syntax highlighting
-syntax enable
 
 """ enable all Python syntax highlighting features
 let python_highlight_all = 1
@@ -71,7 +62,7 @@ let python_highlight_all = 1
 """ disable Ex mode
 map Q <Nop>
 
-" Disable auto comment
+""" Disable auto comment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """ nerdtree
@@ -149,9 +140,6 @@ set showtabline=0
 highlight User1 ctermfg=9
 set ruler
 set rulerformat=%80(%1*%.3n\ %f\%=%l,%(%c%V%)\ %P%)%*
-
-""" show keystroke
-set showcmd
 
 """ fzf
 nnoremap <Leader>gf :Files<CR>
