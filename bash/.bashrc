@@ -1,8 +1,20 @@
-### for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+### If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+### Enable history appending instead of overwriting when exiting
+shopt -s histappend
+
+### Auto cd
+shopt -s autocd
+
+### disable Ctrl-S, Ctrl-Q
+stty -ixon
+
+### For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=50000
 HISTFILESIZE=50000
 
-### enable programmable completion features
+### Enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -42,9 +54,6 @@ alias \
 	grep="grep --color=auto" \
 	diff="diff --color=auto"
 
-### Auto cd
-shopt -s autocd
-
 ### fzf
 # Auto-completion
 [[ $- == *i* ]] && source "/usr/share/fzf/completion.bash" 2> /dev/null
@@ -52,12 +61,12 @@ shopt -s autocd
 # Key bindings
 source "/usr/share/fzf/key-bindings.bash"
 
-### disable Ctrl-S, Ctrl-Q
-stty -ixon
-
 ### Conda
 if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
     . "/opt/anaconda/etc/profile.d/conda.sh"
 else
     export PATH="/opt/anaconda/bin:$PATH"
 fi
+
+### Autojump
+source "/etc/profile.d/autojump.bash"
