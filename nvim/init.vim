@@ -7,6 +7,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'tpope/vim-surround'
+    Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 """ theme
