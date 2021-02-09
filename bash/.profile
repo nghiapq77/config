@@ -1,22 +1,21 @@
-# ~/.bash_profile
-
 # Source bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 # Global variables
-export SCRIPTS="$HOME/.local/scripts"
 export TERMINAL="st"
 export BROWSER="brave"
 export EDITOR="nvim"
 
 # Set PATH so it includes personal scripts
-PATH="$SCRIPTS:$PATH"
+export PATH="$(find ~/.local/bin -type d -not -iwholename '*.git*' -printf %p:)$PATH"
 
 # Cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export HISTFILE="$XDG_CACHE_HOME"/bash/history
+export CONDARC="$XDG_CONFIG_HOME/conda/condarc"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc-2.0
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME"/notmuch/notmuchrc

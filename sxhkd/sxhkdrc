@@ -10,19 +10,21 @@ super + w
     $BROWSER
 super + o ; {w,v,h,s,m,c,b}
     {wifi_selector,$TERMINAL -e nvim,$TERMINAL -e htop,skypeforlinux,$TERMINAL -e neomutt,$TERMINAL -e calcurse,$TERMINAL -e bluetoothctl}
+super + e
+    toggle_lang; pkill -RTMIN+11 dwmblocks
 super + n
-    toggle_redshift.sh
+    toggle_redshift
 super + p
     passmenu_vert
 super + equal
     dmenu_calc
 F8
     toggle_hdmi
+{super,shift} + Print
+    {maimpick,maim -s | xclip -selection clipboard -t image/png}
 XF86AudioMute
     amixer -D pulse set Master 1+ toggle; pkill -RTMIN+10 dwmblocks
 XF86Audio{Raise,Lower}Volume
     amixer -D pulse -q set Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
-XF86MonBrightnessDown
-    brightness down
-XF86MonBrightnessUp
-    brightness up
+XF86MonBrightness{Down,Up}
+    brightness {down,up}

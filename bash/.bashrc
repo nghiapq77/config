@@ -14,14 +14,11 @@ stty -ixon
 HISTSIZE=50000
 HISTFILESIZE=50000
 
-### Enable programmable completion features
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
+### Use bash-completion if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
+
+# Use bash-completion for git if available
+[[ $PS1 && -f /usr/share/bash-completion/completions/git ]] && . /usr/share/bash-completion/completions/git
 
 ### Setting PS1
 export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w\[\033[01;31m\]]\[\033[00m\]\$ "
@@ -40,13 +37,13 @@ alias gf="git fetch"
 alias gp="git pull"
 alias r="ranger ."
 alias act="source venv/bin/activate"
-alias tmres="bash /home/oz/.local/scripts/tmux/current-session.sh"
 alias yaya="yay -Syua"
 alias i="ip -br -c a"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
 alias rsync="rsync -Prv"
+alias c="clear"
 
 # Colorize commands when possible.
 alias \
@@ -55,11 +52,8 @@ alias \
 	diff="diff --color=auto"
 
 ### fzf
-# Auto-completion
-[[ $- == *i* ]] && source "/usr/share/fzf/completion.bash" 2> /dev/null
-
-# Key bindings
-source "/usr/share/fzf/key-bindings.bash"
+# Source auto-completion and key bindings
+[[ $- == *i* ]] && source "/usr/share/fzf/completion.bash" 2> /dev/null; source "/usr/share/fzf/key-bindings.bash"
 
 ### Conda
 if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
