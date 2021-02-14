@@ -26,5 +26,5 @@ XF86AudioMute
     amixer -D pulse set Master 1+ toggle; pkill -RTMIN+10 dwmblocks
 XF86Audio{Raise,Lower}Volume
     amixer -D pulse -q set Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
-XF86MonBrightness{Down,Up}
-    brightness {down,up}
+XF86MonBrightness{Up,Down}
+    light -{A,U} 11 && notify-send -u low -t 1000 "Brightness: $(light)%"
