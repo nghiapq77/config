@@ -6,8 +6,8 @@ export TERMINAL="st"
 export BROWSER="brave"
 export EDITOR="nvim"
 
-# Set PATH so it includes personal scripts
-export PATH="$(find ~/.local/bin -type d -not -iwholename '*.git*' -printf %p:)$PATH"
+# Set PATH so it includes personal scripts, also check $TMUX to prevent duplicate paths
+[[ -z $TMUX ]] && export PATH="$(find ~/.local/bin -type d -not -iwholename '*.git*' -printf %p:)$PATH"
 
 # Cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
