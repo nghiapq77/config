@@ -21,6 +21,9 @@ set number relativenumber
 """ space key as leader
 let mapleader = " "
 
+""" mouse
+set mouse=a
+
 """ Clipboard
 set clipboard+=unnamedplus
 
