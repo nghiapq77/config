@@ -24,32 +24,30 @@ HISTFILESIZE=50000
 export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w\[\033[01;31m\]]\[\033[00m\]\$ "
 
 ### Aliases
+alias c="clear"
+alias ls="ls -hN --color=auto --group-directories-first"
 alias la='ls -A'
 alias lA='ls -lA'
-alias v="nvim"
-alias vf='nvim $(fzf)'
-alias sv="sudo -E nvim"
+alias diff="diff --color=auto"
+alias grep="grep --color=auto"
 alias g="git"
 alias gc="git checkout"
 alias gl="git log --graph --all"
 alias gs="git status"
 alias gf="git fetch"
 alias gp="git pull"
+alias v="nvim"
+alias vf='nvim $(fzf)'
+alias sv="sudo -E nvim"
 alias r="ranger ."
 alias act="source venv/bin/activate"
-alias yaya="yay -Syua"
-alias i="ip -br -c a"
+alias y="yay"
+alias ya="yay -Syua"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
 alias rsync="rsync -Prv"
-alias c="clear"
-
-# Colorize commands when possible.
-alias \
-	ls="ls -hN --color=auto --group-directories-first" \
-	grep="grep --color=auto" \
-	diff="diff --color=auto"
+alias i="ip -br -c a"
 
 ### fzf
 # Source auto-completion and key bindings
