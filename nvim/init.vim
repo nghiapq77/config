@@ -11,6 +11,7 @@ call plug#begin(stdpath('data') . '/plugged')
 call plug#end()
 
 """ theme
+set termguicolors
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_number_column='bg0'
 colorscheme gruvbox

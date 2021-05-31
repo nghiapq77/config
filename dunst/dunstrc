@@ -55,6 +55,7 @@
     history_length = 20
     dmenu = /usr/bin/dmenu -p dunst:
     browser = /usr/bin/firefox -new-tab
+    corner_radius = 15
 
     # Always run rule-defined scripts, even if the notification is suppressed
     always_run_script = true
