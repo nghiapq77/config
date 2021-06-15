@@ -4,6 +4,7 @@ st.alphaOffset: 0.15
 
 !! Set a default font and font size as below:
 st.font: Monaco:size=10
+st.fontalt0: siji:size=10
 
 /* name		dark	light */
 /* black	0	8 */
