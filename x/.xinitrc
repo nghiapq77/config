@@ -1,13 +1,24 @@
 #!/bin/sh
 
+# NVIDIA graphic card only
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+xrandr --dpi 96
+
+# Remap key, run hotkey daemon
+remaps &
+sxhkd &
+
 # Status bar
 dwmblocks &
 
-# Start daemon
+# Wallpaper
 xwallpaper --zoom $HOME/.local/config/wall.png &
-remaps &
-sxhkd &
+
+# ibus
 ibus-daemon -drx
+
+# notifications
 dunst &
 xcompmgr &
 

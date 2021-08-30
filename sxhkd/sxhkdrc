@@ -8,8 +8,8 @@ super + r
     $TERMINAL -e ranger
 super + w
     $BROWSER
-super + o ; {w,v,h,m,c,b}
-    {wifi_selector,$TERMINAL -e nvim,$TERMINAL -e htop,$TERMINAL -e neomutt,$TERMINAL -e calcurse,$TERMINAL -e bluetoothctl}
+super + o ; {w,v,h,m,c,b,a}
+    {wifi_selector,$TERMINAL -e nvim,$TERMINAL -e htop,$TERMINAL -e neomutt,$TERMINAL -e calcurse,$TERMINAL -e bluetoothctl,$TERMINAL -e alsamixer}
 super + e
     toggle_lang; pkill -RTMIN+11 dwmblocks
 super + n
