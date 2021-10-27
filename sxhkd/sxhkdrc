@@ -10,6 +10,10 @@ super + w
     $BROWSER
 super + o ; {w,v,h,m,c,b,a}
     {wifi_selector,$TERMINAL -e nvim,$TERMINAL -e htop,$TERMINAL -e neomutt,$TERMINAL -e calcurse,$TERMINAL -e bluetoothctl,$TERMINAL -e alsamixer}
+#ctrl + {_,shift + }{space,d}
+    #dunstctl {close,close-all,history-pop,set-paused toggle}
+ctrl + {_,shift + }{space}
+    dunstctl {close,close-all}
 super + e
     toggle_lang; pkill -RTMIN+11 dwmblocks
 super + n
@@ -27,4 +31,4 @@ XF86AudioMute
 XF86Audio{Raise,Lower}Volume
     amixer -D pulse -q set Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
 XF86MonBrightness{Up,Down}
-    light -{A,U} 11 && notify-send -u low -t 1000 "Brightness: $(light)%"
+    light -{A,U} 11 && notify-send -u low -t 1000 -h int:value:$(light) "Brightness: $(light)%"
