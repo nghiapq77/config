@@ -28,5 +28,8 @@ xrdb $HOME/.local/config/x/Xresources &
 # Sync mail
 mailsync &
 
+# touchpad gestures
+libinput-gestures-setup start &
+
 # Run dwm
 exec dwm

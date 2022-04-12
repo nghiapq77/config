@@ -48,6 +48,8 @@ alias mv="mv -iv"
 alias rm="rm -vI"
 alias rsync="rsync -Prv"
 alias i="ip -br -c a"
+alias ov10="sudo openvpn $HOME/downloads/works/10.ovpn"
+alias ov11="sudo openvpn $HOME/downloads/works/11.ovpn"
 
 ### fzf
 # Source auto-completion and key bindings
@@ -61,4 +63,4 @@ else
 fi
 
 ### Autojump
-source "/etc/profile.d/autojump.bash"
+[[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
