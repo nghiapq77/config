@@ -2,10 +2,10 @@
     monitor = 0
     follow = keyboard
     origin = top-right
-    width = (0, 300)
+    width = (0, 600)
     #height = 300
-    offset = 0x20
-    corner_radius = 10
+    offset = 0x30
+    corner_radius = 20
     indicate_hidden = yes
     shrink = yes
     transparency = 8
@@ -20,7 +20,7 @@
     separator_color = frame
     sort = yes
     idle_threshold = 120
-    font = Monaco 14
+    font = Monaco 18
     line_height = 0
     markup = full
 

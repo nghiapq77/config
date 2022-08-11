@@ -1,9 +1,9 @@
 !! Transparency (0-1):
-st.alpha: 0.95
-st.alphaOffset: 0.15
+!st.alpha: 0.95
+!st.alphaOffset: 0.15
 
 !! Set a default font and font size as below:
-st.font: Monaco:size=10
+st.font: Monaco:size=15:antialias=true:autohint=true
 st.fontalt0: siji:size=10
 
 /* name		dark	light */

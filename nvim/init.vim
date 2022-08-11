@@ -8,6 +8,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'tpope/vim-surround'
     Plug 'christoomey/vim-tmux-navigator'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 """ theme
@@ -88,15 +89,21 @@ map <Leader> <Plug>(easymotion-prefix)
 set hidden
 
 " use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-   let col = col('.') - 1
-   return !col || getline('.')[col - 1]  =~ '\s'
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <silent><expr> <Tab>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<Tab>" :
-        \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " goto code navigations
 nmap <leader>gd <Plug>(coc-definition)
@@ -141,6 +148,9 @@ nmap <F7> :call CocAction('format')<CR>
 " hide actual tabline
 set showtabline=0
 
+" hide statusline
+set laststatus=0
+
 " Set ruler to show current buffer
 highlight User1 ctermfg=9
 set ruler
@@ -161,3 +171,21 @@ endwhile
 """ Set default cursorline, toggle cursorline
 set cursorline
 nnoremap <Leader>hi :set cursorline!<CR>
+
+"""treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
+"""Cycling through listed buffers
+:nnoremap <leader>n :bnext<CR>
+:nnoremap <leader>p :bprevious<CR>

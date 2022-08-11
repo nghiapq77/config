@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# NVIDIA graphic card only
-xrandr --setprovideroutputsource modesetting NVIDIA-0
-xrandr --auto
-xrandr --dpi 96
-
 # Remap key, run hotkey daemon
 remaps &
 sxhkd &
@@ -20,16 +15,15 @@ ibus-daemon -drx
 
 # notifications
 dunst &
-xcompmgr &
+
+# compositor
+picom &
 
 # Use xresources
 xrdb $HOME/.local/config/x/Xresources &
 
 # Sync mail
 mailsync &
-
-# touchpad gestures
-libinput-gestures-setup start &
 
 # Run dwm
 exec dwm

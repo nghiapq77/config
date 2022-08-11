@@ -1,18 +1,18 @@
 ### If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-### Enable history appending instead of overwriting when exiting
-shopt -s histappend
-
 ### Auto cd
 shopt -s autocd
 
 ### disable Ctrl-S, Ctrl-Q
 stty -ixon
 
-### For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=50000
-HISTFILESIZE=50000
+### History
+HISTSIZE=100000
+HISTFILESIZE=100000
+export HISTCONTROL=ignoredups # ignore duplicates
+shopt -s histappend # Enable history appending instead of overwriting when exiting
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND" # write command to history immediately
 
 ### Use bash-completion if available
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
@@ -32,11 +32,13 @@ alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias g="git"
 alias gc="git checkout"
+alias gd="git diff"
 alias gl="git log --graph --all"
 alias gs="git status"
 alias gf="git fetch"
 alias gp="git pull"
 alias v="nvim"
+alias vim="nvim"
 alias vf='nvim $(fzf)'
 alias sv="sudo -E nvim"
 alias r="ranger ."
@@ -48,19 +50,12 @@ alias mv="mv -iv"
 alias rm="rm -vI"
 alias rsync="rsync -Prv"
 alias i="ip -br -c a"
-alias ov10="sudo openvpn $HOME/downloads/works/10.ovpn"
-alias ov11="sudo openvpn $HOME/downloads/works/11.ovpn"
+alias ov10="sudo openvpn $HOME/works/10.ovpn"
+alias ov11="sudo openvpn $HOME/works/11.ovpn"
 
 ### fzf
 # Source auto-completion and key bindings
 [[ $- == *i* ]] && source "/usr/share/fzf/completion.bash" 2> /dev/null; source "/usr/share/fzf/key-bindings.bash"
-
-### Conda
-if [ -f "/opt/anaconda/etc/profile.d/conda.sh" ]; then
-    . "/opt/anaconda/etc/profile.d/conda.sh"
-else
-    export PATH="/opt/anaconda/bin:$PATH"
-fi
 
 ### Autojump
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
