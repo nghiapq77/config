@@ -8,8 +8,8 @@ shopt -s autocd
 stty -ixon
 
 ### History
-HISTSIZE=100000
-HISTFILESIZE=100000
+HISTSIZE= 
+HISTFILESIZE= 
 export HISTCONTROL=ignoredups # ignore duplicates
 shopt -s histappend # Enable history appending instead of overwriting when exiting
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND" # write command to history immediately
@@ -59,3 +59,19 @@ alias ov11="sudo openvpn $HOME/works/11.ovpn"
 
 ### Autojump
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/oz/projects/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/oz/projects/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/oz/projects/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/oz/projects/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

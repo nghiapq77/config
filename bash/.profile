@@ -25,9 +25,10 @@ export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/pass"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME"/notmuch/notmuchrc
 export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/isync/mbsyncrc"
 export MPOPRC="${XDG_CONFIG_HOME:-$HOME/.config}/mpop/config"
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+export NLTK_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/nltk_data"
 
 # Windows scaling
-#export GDK_SCALE=2
 export GDK_DPI_SCALE=1.25
 export QT_AUTO_SCREEN_SET_FACTOR=0
 export QT_SCALE_FACTOR=1.25
