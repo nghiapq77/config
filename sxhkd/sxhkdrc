@@ -6,13 +6,14 @@ super + d
     dmenu_run_i
 super + w
     $BROWSER
-super + o ; {w,v,t,m,c,b,B,a,f}
+super + o ; {w,v,t,m,c,b,n,B,a,f}
     {wifi_selector,\
     $TERMINAL -e nvim,\
     $TERMINAL -e btop,\
     $TERMINAL -e neomutt,\
     $TERMINAL -e calcurse,\
     dmenu_bluetooth,\
+    dmenu_noti,\
     $TERMINAL -e bluetoothctl,\
     pavucontrol,\
     $TERMINAL -e lftm}
@@ -20,8 +21,6 @@ super + e
     toggle_lang; pkill -RTMIN+11 dwmblocks
 super + n
     toggle_redshift
-super + shift + n
-    dmenu_noti
 super + p
     passmenu_vert
 super + equal

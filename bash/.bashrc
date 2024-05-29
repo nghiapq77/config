@@ -8,8 +8,8 @@ shopt -s autocd
 stty -ixon
 
 ### History
-HISTSIZE= 
-HISTFILESIZE= 
+unset HISTFILESIZE
+HISTSIZE=100000
 export HISTCONTROL=ignoredups # ignore duplicates
 shopt -s histappend # Enable history appending instead of overwriting when exiting
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND" # write command to history immediately
