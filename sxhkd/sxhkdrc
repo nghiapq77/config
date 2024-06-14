@@ -17,8 +17,12 @@ super + o ; {w,v,t,m,c,b,n,B,a,f}
     $TERMINAL -e bluetoothctl,\
     pavucontrol,\
     $TERMINAL -e lftm}
+super + shift + r
+    pkill -USR1 -x sxhkd; notify-send -t 2000 "sxhkd" "Reloaded config"
+super + r
+    refbar; notify-send -t 1000 "dwmblocks" "Refreshed"
 super + e
-    toggle_lang; pkill -RTMIN+11 dwmblocks
+    toggle_lang; pkill -39 dwmblocks
 super + n
     toggle_redshift
 super + p
@@ -30,9 +34,9 @@ ctrl + {_,shift + }{space}
 {_,super,shift} + Print
     {maimpick,maim -s | xclip -selection clipboard -t image/png,maim $HOME/pics/pic-full-$(date '+%y%m%d-%H%M-%S').png}
 XF86AudioMute
-    pamixer -t; pkill -RTMIN+10 dwmblocks && notify-send -u low -t 1000 -h int:value:$(pamixer --get-volume) "Audio: $(pamixer --get-volume-human)"
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; pkill -38 dwmblocks && notify-send -u low -t 1000 -h int:value:$(get-volume percent) "Audio: $(get-volume)"
 XF86Audio{Raise,Lower}Volume
-    pamixer {-i,-d} 5; pkill -RTMIN+10 dwmblocks && notify-send -u low -t 1000 -h int:value:$(pamixer --get-volume) "Audio: $(pamixer --get-volume-human)"
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{+,-} -l 1; pkill -38 dwmblocks && notify-send -u low -t 1000 -h int:value:$(get-volume percent) "Audio: $(get-volume)"
 XF86AudioMicMute
     playerctl play-pause
 XF86Display
@@ -40,10 +44,10 @@ XF86Display
 XF86Tools
     toggle_touchpad
 XF86Bluetooth
-    notify-send -t 2000 "Toggling Bluetooth" && sleep 2s && notify-send "Bluetooth: $(bluetoothctl list | grep -q Controller && echo 'ON' || echo 'OFF')" && pkill -39 dwmblocks
+    notify-send -t 2000 "Toggling Bluetooth" && sleep 2s && notify-send "Bluetooth: $(bluetoothctl list | grep -q Controller && echo 'ON' || echo 'OFF')" && pkill -43 dwmblocks
 XF86Favorites
     $TERMINAL
 XF86Launch1
-    toggle_lang; pkill -RTMIN+11 dwmblocks
+    toggle_lang; pkill -39 dwmblocks
 XF86MonBrightness{Up,Down}
     xbacklight -{inc,dec} 10 && notify-send -u low -t 1000 -h int:value:$(xbacklight -get) "Brightness: $(xbacklight -get)%"

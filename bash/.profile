@@ -27,6 +27,7 @@ export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/isync/mbsyncrc"
 export MPOPRC="${XDG_CONFIG_HOME:-$HOME/.config}/mpop/config"
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export NLTK_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/nltk_data"
+export GOPATH="$XDG_DATA_HOME"/go
 
 # Windows scaling
 export GDK_DPI_SCALE=1.25
