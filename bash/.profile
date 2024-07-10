@@ -3,7 +3,7 @@
 
 # Global variables
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="librewolf"
 export EDITOR="nvim"
 
 # Set PATH so it includes personal scripts, also check $TMUX to prevent duplicate paths
