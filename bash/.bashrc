@@ -10,9 +10,9 @@ stty -ixon
 ### History
 unset HISTFILESIZE
 HISTSIZE=100000
-export HISTCONTROL=ignoredups # ignore duplicates
-shopt -s histappend # Enable history appending instead of overwriting when exiting
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND" # write command to history immediately
+export HISTCONTROL=ignoredups                # ignore duplicates
+shopt -s histappend                          # enable history appending instead of overwriting when exiting
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"  # write command to history immediately
 
 ### Use bash-completion if available
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
@@ -26,11 +26,12 @@ export PS1="\[\e]0;\u: \w\a\]\[\033[01;31m\][\[\033[01;32m\]\u \[\033[01;34m\]\w
 ### Aliases
 alias c="clear"
 alias ls="ls -hN --color=auto --group-directories-first"
-alias la='ls -A'
-alias lA='ls -lA'
+alias la="ls -A"
+alias lA="ls -lA"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 alias g="git"
+alias ga="git add"
 alias gc="git checkout"
 alias gd="git diff"
 alias gl="git log --graph --all"
@@ -38,10 +39,7 @@ alias gs="git status"
 alias gf="git fetch"
 alias gp="git pull"
 alias v="nvim"
-alias vim="nvim"
-alias vf='nvim $(fzf)'
 alias sv="sudo -E nvim"
-alias r="ranger ."
 alias act="source venv/bin/activate"
 alias y="yay"
 alias ya="yay -Syua"
@@ -50,8 +48,6 @@ alias mv="mv -iv"
 alias rm="rm -vI"
 alias rsync="rsync -Prv"
 alias i="ip -br -c a"
-alias ov10="sudo openvpn $HOME/works/10.ovpn"
-alias ov11="sudo openvpn $HOME/works/11.ovpn"
 
 ### fzf
 # Source auto-completion and key bindings

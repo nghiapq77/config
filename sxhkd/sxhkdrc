@@ -6,48 +6,63 @@ super + d
     dmenu_run_i
 super + w
     $BROWSER
-super + o ; {w,v,t,m,c,b,n,B,a,f}
-    {wifi_selector,\
-    $TERMINAL -e nvim,\
-    $TERMINAL -e btop,\
-    $TERMINAL -e neomutt,\
-    $TERMINAL -e calcurse,\
-    dmenu_bluetooth,\
-    dmenu_noti,\
-    $TERMINAL -e bluetoothctl,\
-    pavucontrol,\
-    $TERMINAL -e lftm}
+super + o ; {f,t,c,B,m,w,b,n,a}
+    { $TERMINAL -e lftm,\
+      $TERMINAL -e btop,\
+      $TERMINAL -e calcurse,\
+      $TERMINAL -e bluetoothctl,\
+      $TERMINAL -e neomutt,\
+      dmenu_wifi,\
+      dmenu_bluetooth,\
+      dmenu_noti,\
+      pavucontrol,\
+    }
+super + space ; {f,t,c,B,m,w,b,n,a}
+    { $TERMINAL -e lftm,\
+      $TERMINAL -e btop,\
+      $TERMINAL -e calcurse,\
+      $TERMINAL -e bluetoothctl,\
+      $TERMINAL -e neomutt,\
+      dmenu_wifi,\
+      dmenu_bluetooth,\
+      dmenu_noti,\
+      pavucontrol,\
+    }
 super + shift + r
-    pkill -USR1 -x sxhkd; notify-send -t 2000 "sxhkd" "Reloaded config"
+    pkill -USR1 -x sxhkd; notify-send -u low -t 1000 "sxhkd" "Reloaded config"
 super + r
-    refbar; notify-send -t 1000 "dwmblocks" "Refreshed"
+    refbar; notify-send -u low -t 1000 "dwmblocks" "Refreshed"
 super + e
     toggle_lang; pkill -39 dwmblocks
 super + n
     toggle_redshift
 super + p
-    passmenu_vert
+    dmenu_passmenu
 super + equal
     dmenu_calc
 ctrl + {_,shift + }{space}
     dunstctl {close,close-all}
 {_,super,shift} + Print
-    {maimpick,maim -s | xclip -selection clipboard -t image/png,maim $HOME/pics/pic-full-$(date '+%y%m%d-%H%M-%S').png}
+    {dmenu_maimpick,maim -s | xclip -selection clipboard -t image/png,maim $HOME/pics/pic-full-$(date '+%y%m%d-%H%M-%S').png}
 XF86AudioMute
     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; pkill -38 dwmblocks && notify-send -u low -t 1000 -h int:value:$(get-volume percent) "Audio: $(get-volume)"
 XF86Audio{Raise,Lower}Volume
     wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{+,-} -l 1; pkill -38 dwmblocks && notify-send -u low -t 1000 -h int:value:$(get-volume percent) "Audio: $(get-volume)"
 XF86AudioMicMute
     playerctl play-pause
+XF86MonBrightness{Up,Down}
+    xbacklight -{inc,dec} 10 && notify-send -u low -t 1000 -h int:value:$(xbacklight -get) "Brightness: $(xbacklight -get)%"
 XF86Display
     toggle_hdmi
+XF86WLAN
+    [[ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ]] && notify-send "WLAN" "Off" || notify-send "WLAN" "On"; sleep 2.5s && pkill -44 dwmblocks
 XF86Tools
     toggle_touchpad
 XF86Bluetooth
-    notify-send -t 2000 "Toggling Bluetooth" && sleep 2s && notify-send "Bluetooth: $(bluetoothctl list | grep -q Controller && echo 'ON' || echo 'OFF')" && pkill -43 dwmblocks
-XF86Favorites
-    $TERMINAL
+    notify-send "Bluetooth" "$(bluetoothctl list | grep -q Controller && echo 'Off' || echo 'On')"; sleep 2.5s && pkill -43 dwmblocks
 XF86Launch1
     toggle_lang; pkill -39 dwmblocks
-XF86MonBrightness{Up,Down}
-    xbacklight -{inc,dec} 10 && notify-send -u low -t 1000 -h int:value:$(xbacklight -get) "Brightness: $(xbacklight -get)%"
+XF86Favorites
+    $TERMINAL
+Insert
+    dmenu_calc

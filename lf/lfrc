@@ -1,7 +1,7 @@
 # Note on Image Previews
 #
 # 1. ueberzug must be installed.
-# 2. The scope file (~/.config/lf/scope for me), must have a command similar to
+# 2. The preview file (~/.local/bin/lf/lf-previewer for me), must have a command similar to
 #    mine to generate ueberzug images.
 # 3. A `set cleaner` line as below is a cleaner script.
 # 4. lf should be started through a wrapper script (~/.local/bin/lfub for me)
@@ -15,8 +15,8 @@ set ifs "\n"
 set scrolloff 10
 set icons
 set period 1
-set cleaner '~/.config/lf/cleaner'
-set previewer '~/.config/lf/scope'
+set cleaner '~/.local/bin/lf/lf-cleaner'
+set previewer '~/.local/bin/lf/lf-previewer'
 set info size
 set dircounts
 set drawbox
@@ -25,11 +25,10 @@ set mouse
 # cmds/functions
 cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
-        image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
-        text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
+        text/* | application/json | inode/x-empty | application/x-subrip) $EDITOR $fx;;
         image/svg+xml) display -- $f ;;
         image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" |
-            setsid -f sxiv -aio 2>/dev/null | while read -r file; do
+            setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
                 [ -z "$file" ] && continue
                 lf -remote "send select \"$file\""
                 lf -remote "send toggle"
@@ -37,8 +36,8 @@ cmd open ${{
             ;;
         audio/*) mpv --audio-display=no $f ;;
         video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-        application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-        application/pgp-encrypted) $EDITOR $fx ;;
+        application/pdf) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        application/*zip) aunpack $fx ;;
         *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
 }}
@@ -83,6 +82,8 @@ cmd extract ${{
 }}
 
 cmd tar %tar czf "$(basename "$f").tar.gz" "$(basename $f)"
+
+cmd zip %zip -r "$(basename "$f").zip" "$(basename $f)"
 
 cmd copyto ${{
     clear; tput cup $(($(tput lines)/3)); tput bold
@@ -141,15 +142,15 @@ map Q quit
 map ` mark-load
 map J half-down
 map K half-up
+map o open
 map g top
 map y copy
 map D delete
 map X extract
-map Z tar
+map Z zip
+map T tar
 map S $$SHELL
 map Y yank-basename
-map o &mimeopen $f
-map O $mimeopen --ask $f
 map C copyto
 map M moveto
 

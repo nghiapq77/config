@@ -1,12 +1,12 @@
 """ Plugin manager
 call plug#begin(stdpath('data') . '/plugged')
+    Plug 'morhetz/gruvbox'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'preservim/nerdtree'
     Plug 'preservim/nerdcommenter'
-    Plug 'easymotion/vim-easymotion'
-    Plug 'morhetz/gruvbox'
     Plug 'junegunn/fzf.vim'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'tpope/vim-surround'
+    Plug 'easymotion/vim-easymotion'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
@@ -17,59 +17,68 @@ let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_number_column='bg0'
 colorscheme gruvbox
 
-""" set relative line number
+""" setting
 set number relativenumber
-
-""" space key as leader
-let mapleader = " "
-
-""" mouse
+set clipboard+=unnamedplus
+set nowrap
+set nohlsearch
 set mouse=a
 
-""" Clipboard
-set clipboard+=unnamedplus
-
-""" Searching with /
+" Searching with /
 set ignorecase
 set smartcase
-set nohlsearch  " Disable hlsearch
 
-""" Key, keycode delay
+" Key, keycode delay
 set timeoutlen=1000 ttimeoutlen=0
 
-""" map Y to have same behavior as C and D
+" Indentation
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4
+
+" Set default cursorline, toggle cursorline
+set cursorline
+
+" Disable auto comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" enable all Python syntax highlighting features
+"let python_highlight_all = 1
+
+""" remapping
+" space as leader
+let mapleader = " "
+
+" map Y to have same behavior as C and D
 map Y y$
 
-""" remap J, K to move up and down
-map J <C-d>
-map K <C-u>
+" remap J, K to move up and down
+map J <C-d>zz
+map K <C-u>zz
+"nnoremap J <C-d>zz
+"nnoremap K <C-u>zz
+"vnoremap J :m '>+1<CR>gv=gv
+"vnoremap K :m '<-2<CR>gv=gv
 
-""" map :W to :w
-command W w
-
-""" map Enter to new line
-nmap <cr> o<esc>
-
-""" split navigations
+" split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-""" Indentation 
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4
+" map :W to sudo write
+command W w !sudo tee %
 
-""" No wrap long line
-set nowrap
+" map Enter to new line
+nmap <cr> o<esc>
 
-""" enable all Python syntax highlighting features
-let python_highlight_all = 1
+" cycling through listed buffers
+nnoremap <leader>j :bnext<CR>
+nnoremap <leader>k :bprevious<CR>
 
-""" disable Ex mode
+" alternate file
+nnoremap <leader><tab> <C-^>
+
+" disable Ex mode
 map Q <Nop>
-
-""" Disable auto comment
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """ nerdtree
 " toggle
@@ -82,7 +91,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDTreeBookmarksFile = '~/.local/share/nvim' . '/NERDTreeBookmarks'
 
 """ easymotion 
-map <Leader> <Plug>(easymotion-prefix)
+map <Leader><Leader> <Plug>(easymotion-prefix)
 
 """ CoC
 " TextEdit might fail if hidden is not set.
@@ -157,20 +166,10 @@ set ruler
 set rulerformat=%80(%1*%.3n\ %f\%=%l,%(%c%V%)\ %P%)%*
 
 """ fzf
-nnoremap <Leader>gf :Files<CR>
-nnoremap <Leader>gb :Buffers<CR>
-nnoremap <Leader>gl :Lines<CR>
-
-""" buffers switching: Ngb
-let c = 1
-while c <= 30
-    execute "nnoremap " . c . "gb :" . c . "b\<CR>"
-    let c += 1
-endwhile
-
-""" Set default cursorline, toggle cursorline
-set cursorline
-nnoremap <Leader>hi :set cursorline!<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>l :Lines<CR>
+nnoremap <Leader>s :Rg<CR>
+nnoremap <Leader>b :Buffers<CR>
 
 """treesitter
 lua <<EOF
@@ -185,7 +184,3 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-
-"""Cycling through listed buffers
-:nnoremap <leader>n :bnext<CR>
-:nnoremap <leader>p :bprevious<CR>
