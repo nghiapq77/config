@@ -1,2 +1,3 @@
 *.ttf
 *.otf
+nvim/coc-settings.json

@@ -9,6 +9,8 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'easymotion/vim-easymotion'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-tree/nvim-web-devicons' " Recommended (for coloured icons)
+    Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 call plug#end()
 
 """ theme
@@ -18,43 +20,29 @@ let g:gruvbox_number_column='bg0'
 colorscheme gruvbox
 
 """ setting
-set number relativenumber
-set clipboard+=unnamedplus
-set nowrap
-set nohlsearch
-set mouse=a
-
-" Searching with /
-set ignorecase
-set smartcase
-
-" Key, keycode delay
-set timeoutlen=1000 ttimeoutlen=0
-
-" Indentation
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4
-
-" Set default cursorline, toggle cursorline
-set cursorline
-
-" Disable auto comment
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" enable all Python syntax highlighting features
-"let python_highlight_all = 1
+set number relativenumber  " relative number line
+set clipboard+=unnamedplus  " global clipboard
+set nowrap  " no line wrapping
+set ignorecase  " ignore case in search
+set smartcase  " override ignorecase  if the search pattern contains uppercase
+set nohlsearch  " no highlight search results
+set mouse=a  " enable mouse
+set ruler  " show ruler
+set rulerformat=%80(%1*%.3n\ %f\%=%l,%(%c%V%)\ %P%)%*  " set ruler format
+set timeoutlen=1000 ttimeoutlen=0  " Key, keycode delay
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4  " indentation
+set cursorline  " highlight line with cursor"
+set showtabline=0  " hide actual tabline
+set laststatus=0  " never show status line
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o  " disable auto comment
 
 """ remapping
 " space as leader
 let mapleader = " "
 
-" map Y to have same behavior as C and D
-map Y y$
-
-" remap J, K to move up and down
+" remap j, k
 map J <C-d>zz
 map K <C-u>zz
-"nnoremap J <C-d>zz
-"nnoremap K <C-u>zz
 "vnoremap J :m '>+1<CR>gv=gv
 "vnoremap K :m '<-2<CR>gv=gv
 
@@ -67,15 +55,11 @@ nnoremap <C-H> <C-W><C-H>
 " map :W to sudo write
 command W w !sudo tee %
 
+" map Y to have same behavior as C and D
+map Y y$
+
 " map Enter to new line
 nmap <cr> o<esc>
-
-" cycling through listed buffers
-nnoremap <leader>j :bnext<CR>
-nnoremap <leader>k :bprevious<CR>
-
-" alternate file
-nnoremap <leader><tab> <C-^>
 
 " disable Ex mode
 map Q <Nop>
@@ -83,6 +67,7 @@ map Q <Nop>
 """ nerdtree
 " toggle
 map <C-n> :NERDTreeToggle<CR>
+map <Leader>n :NERDTreeToggle<CR>
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -91,15 +76,19 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDTreeBookmarksFile = '~/.local/share/nvim' . '/NERDTreeBookmarks'
 
 """ easymotion 
-map <Leader><Leader> <Plug>(easymotion-prefix)
+map <Leader> <Plug>(easymotion-prefix)
 
 """ CoC
-" TextEdit might fail if hidden is not set.
-set hidden
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
 
-" use <tab> for trigger completion and navigate to the next complete item
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
+set updatetime=300
+
+" Use tab for trigger completion with characters ahead and navigate
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1):
+      \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
@@ -118,69 +107,73 @@ endfunction
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf <Plug>(coc-fix-current)
 
-" Coc search
-nmap <leader>rs :CocSearch -S 
+" Show all diagnostics
+nnoremap <silent><nowait> <leader>a :<C-u>CocList diagnostics<cr>
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+" Use K to show documentation in preview window
+nnoremap <leader>K :call ShowDocumentation()<CR>
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Show documentation in preview window.
-nnoremap <leader>d :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-    else
-        execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
 " Code format
 nmap <F7> :call CocAction('format')<CR>
 
-""" cmd line
-" hide actual tabline
-set showtabline=0
-
-" hide statusline
-set laststatus=0
-
-" Set ruler to show current buffer
-highlight User1 ctermfg=9
-set ruler
-set rulerformat=%80(%1*%.3n\ %f\%=%l,%(%c%V%)\ %P%)%*
-
 """ fzf
+nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :Files<CR>
+nnoremap <C-o> :Files<CR>
 nnoremap <Leader>l :Lines<CR>
 nnoremap <Leader>s :Rg<CR>
-nnoremap <Leader>b :Buffers<CR>
+nnoremap <C-f> :Rg<CR>
+nnoremap <Leader>v :vsplit<CR>:Files<CR>
 
 """treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
+    disable = { "cpp" },
     additional_vim_regex_highlighting = false,
   },
 }
 EOF
+
+""" buffer
+nnoremap <leader>j :bnext<CR>
+nnoremap <leader>k :bprevious<CR>
+nnoremap <leader><tab> <C-^>
+
+" bufferline
+lua << EOF
+require("bufferline").setup{
+  options = {
+    numbers = function(opts)
+      return string.format('%s', opts.raise(opts.id))
+    end,
+    middle_mouse_command = "bdelete! %d",
+    offsets = { { filetype = "nerdtree", text = "NERDTree" } },
+  },
+  highlights = {
+    fill = {
+      bg = '#282828',
+    },
+  },
+}
+EOF
+nnoremap <Leader>` :BufferLinePick<CR>
+nnoremap <Leader>d :bd<CR>
