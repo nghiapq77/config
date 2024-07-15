@@ -1,4 +1,4 @@
-# Key bindings
+# sxhkd
 
 super + Return
     $TERMINAL
@@ -34,6 +34,8 @@ super + r
     refbar; notify-send -u low -t 1000 "dwmblocks" "Refreshed"
 super + e
     toggle_lang; pkill -39 dwmblocks
+super + b
+    dmenu_bluetooth
 super + n
     toggle_redshift
 super + p
@@ -46,16 +48,16 @@ ctrl + {_,shift + }{space}
     {dmenu_maimpick,maim -s | xclip -selection clipboard -t image/png,maim $HOME/pics/pic-full-$(date '+%y%m%d-%H%M-%S').png}
 XF86AudioMute
     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; pkill -38 dwmblocks && notify-send -u low -t 1000 -h int:value:$(get-volume percent) "Audio: $(get-volume)"
-XF86Audio{Raise,Lower}Volume
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%{+,-} -l 1; pkill -38 dwmblocks && notify-send -u low -t 1000 -h int:value:$(get-volume percent) "Audio: $(get-volume)"
+{_,super + }XF86Audio{Raise,Lower}Volume
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ {5%+,25%+,5%-,25%-} -l 1.5; pkill -38 dwmblocks && notify-send -u low -t 1000 -h int:value:$(get-volume percent) "Audio: $(get-volume)"
 XF86AudioMicMute
     playerctl play-pause
-XF86MonBrightness{Up,Down}
-    xbacklight -{inc,dec} 10 && notify-send -u low -t 1000 -h int:value:$(xbacklight -get) "Brightness: $(xbacklight -get)%"
+{_,super + }XF86MonBrightness{Up,Down}
+    xbacklight -{inc 10,inc 25,dec 10,dec 25} && notify-send -u low -t 1000 -h int:value:$(xbacklight -get) "Brightness: $(xbacklight -get)%"
 XF86Display
     toggle_hdmi
 XF86WLAN
-    [[ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ]] && notify-send "WLAN" "Off" || notify-send "WLAN" "On"; sleep 2.5s && pkill -44 dwmblocks
+    [ "$(cat /sys/class/net/w*/operstate 2>/dev/null)" = 'up' ] && notify-send "WLAN" "Off" || notify-send "WLAN" "On"; sleep 2.5s && pkill -44 dwmblocks
 XF86Tools
     toggle_touchpad
 XF86Bluetooth
@@ -63,6 +65,6 @@ XF86Bluetooth
 XF86Launch1
     toggle_lang; pkill -39 dwmblocks
 XF86Favorites
-    $TERMINAL
+    xdotool key Super_L+Shift_L+Return
 Insert
-    dmenu_calc
+    xdotool type $(grep -v '^#' ~/.local/share/bm | dmenu -p "Bookmarks:" -i -l 20 | cut -d' ' -f1)
