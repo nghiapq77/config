@@ -8,13 +8,10 @@ sxhkd &
 dwmblocks &
 
 # Wallpaper
-xwallpaper --zoom $HOME/.local/config/wall.png &
+xwallpaper --zoom $HOME/.local/config/wallpaper.png &
 
 # ibus
 ibus-daemon -drx
-
-# notifications
-dunst &
 
 # compositor
 picom &
@@ -25,5 +22,8 @@ unclutter &
 # Use xresources
 xrdb $HOME/.local/config/x/Xresources &
 
+# Activate dbus variables
+dbus-update-activation-environment --all
+
 # Run dwm
-exec dwm
+exec dbus-launch --exit-with-session dwm
