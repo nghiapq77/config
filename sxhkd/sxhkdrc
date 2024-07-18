@@ -64,7 +64,7 @@ XF86Bluetooth
     notify-send "Bluetooth" "$(bluetoothctl list | grep -q Controller && echo 'Off' || echo 'On')"; sleep 2.5s && pkill -43 dwmblocks
 XF86Launch1
     toggle_lang; pkill -39 dwmblocks
-XF86Favorites
-    xdotool key Super_L+Shift_L+Return
+{_,super + }XF86Favorites
+    {xdotool key Super_L+Shift_L+Return,dmenu_battery}
 Insert
     xdotool type $(grep -v '^#' ~/.local/share/bm | dmenu -p "Bookmarks:" -i -l 20 | cut -d' ' -f1)
